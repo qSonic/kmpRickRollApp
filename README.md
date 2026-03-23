@@ -5,7 +5,6 @@ Template для MVP-проекта с кроссплатформенными dat
 ## Что есть
 
 - Авторизация (`login/register`) через локальную БД (SQLDelight)
-- Дефолтный пользователь: `admin/admin`
 - Экран плеера с RickRoll MP4
 - Вертикальный full-screen плеер на iOS и Android (поведение как в short-video лентах)
 - Нативные контролы плеера на iOS/Android + аппаратные кнопки громкости для media stream
@@ -63,12 +62,3 @@ shared/
   player_data/
   (umbrella)
 ```
-
-## RequestResult
-
-Репозитории возвращают только `RequestResult<T>`:
-
-- `RequestResult.Success(data)`
-- `RequestResult.Error(code, message)`
-
-Базовые коды ошибок: `EMPTY_LOGIN`, `EMPTY_PASSWORD`, `LOGIN_ALREADY_EXISTS`, `INVALID_CREDENTIALS`, `DATABASE`, `UNKNOWN`.
