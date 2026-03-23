@@ -16,6 +16,8 @@ RickRoll URL:
 
 ## Архитектура
 
+![KMP architecture](kmp_three_layer_domain_data_layer.png)
+
 ### Shared
 
 - `shared:core`:
