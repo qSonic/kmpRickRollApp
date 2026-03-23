@@ -1,0 +1,40 @@
+CREATE TABLE users (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    login TEXT NOT NULL UNIQUE,
+    password_hash TEXT NOT NULL,
+    role TEXT NOT NULL,
+    created_at INTEGER NOT NULL
+);
+
+CREATE TABLE session (
+    id INTEGER NOT NULL PRIMARY KEY CHECK (id = 0),
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    created_at INTEGER NOT NULL
+);
+
+selectUserByLogin:
+SELECT *
+FROM users
+WHERE login = ?;
+
+insertUser:
+INSERT INTO users(login, password_hash, role, created_at)
+VALUES (?, ?, ?, ?);
+
+insertDefaultAdmin:
+INSERT OR IGNORE INTO users(login, password_hash, role, created_at)
+VALUES (?, ?, ?, ?);
+
+selectSession:
+SELECT session.user_id, users.login, users.role
+FROM session
+JOIN users ON users.id = session.user_id
+WHERE session.id = 0;
+
+upsertSession:
+INSERT OR REPLACE INTO session(id, user_id, created_at)
+VALUES (0, ?, ?);
+
+clearSession:
+DELETE FROM session
+WHERE id = 0;
